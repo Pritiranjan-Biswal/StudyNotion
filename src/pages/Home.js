@@ -2,8 +2,8 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <div>
-      <h1></h1>
+    <div className='flex justify-center items-center'>
+      Home
 
     </div>
   )
