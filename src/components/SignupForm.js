@@ -1,46 +1,125 @@
 import React, { useState } from 'react'
 import {AiOutlineEye, AiOutlineEyeInvisible} from "react-icons/ai"
+import toast from 'react-hot-toast'
+      const SignupForm = ({setIsLoggedIn}) => {
+        const [formData, setFormData]=useState({
+          firstName:"",
+          lastName:"",
+          email:"",
+          password:"",
+          confirmPassword:""
+        })
+        function  changeHandler(event) {
+              setFormData((prevData) => (
+                  {
+                      ...prevData,
+                      [event.target.name]: event.target.value
+                  }
+              ))
+          }
+        function  submiHandler(event) {
+          event.preventDefault();
+          if(formData.password != formData.confirmPassword) {
+            toast.error("Password Don't match")
+          }
+          setIsLoggedIn(true);
+        toast.success("Account Created Successfully")
+       
+        }
+        
 
-const SignupForm = () => {
-    const {formData, setFormData}=useState({
-        email:"", password:""
-    })
-    const [showPassword, setShowPassword]=useState(false)
-    function  changeHandler(event) {
-        setFormData((prevData) => (
-            {
-                ...prevData,
-                [event.target.name]: event.target.value
-            }
-        ))
-    }
-  return (
-    <form>
-      <label>
-        <p>Email Address<sup>*</sup></p>
-        <input required
-        type='text'
-        value={formData.email}
-        onChange={changeHandler}
-        placeholder='Enter email id' />
-      </label>
-      <label>
-        <p>Password<sup>*</sup></p>
-        <input required
-        type={showPassword ? ("text") : (" password")}
-        value={formData.password}
-        onChange={changeHandler}
-        placeholder='Enter Password' />
-      </label>
+        const accountData= {
+          ...formData
+        }
+        
+          const [showPassword, setShowPassword]=useState(false)
+        return (
+          <div>
+            {/* student-Instructor */}
+            <div>
+              <button>Student</button>
+              <button>Instructor</button>
+              </div>
+              
+          <form onSubmit={submiHandler}>
+            <div>
+             <label>
+              <p>First Name<sup>*</sup></p>
+              <input 
+              required
+              type='text'
+              name='firstName'
+              onChange={changeHandler}
+              placeholder='Enter First Name'
+              value={FormData.firstName}/>
+            </label>
 
-      <span onClick={() => setShowPassword((prev) => !prev)}>
-        {showPassword ? (<AiOutlineEye/>) :(<AiOutlineEyeInvisible/>)}
-      </span>
-      <Link to ="#">
-      <p>Forgot Password</p>
-      </Link>
-    </form>
-  )
-}
+            <label>
+              <p>Last Name<sup>*</sup></p>
+              <input 
+              required
+              type='text'
+              name='lastName'
+              onChange={changeHandler}
+              placeholder='Enter Last Name'
+              value={FormData.lastName}/>
+            </label>
 
-export default SignupForm
+            </div>
+
+
+
+             <label>
+              <p>Email Address<sup>*</sup></p>
+              <input 
+              required
+              type='email'
+              name='email'
+              onChange={changeHandler}
+              placeholder='Enter Email Address'
+              value={FormData.email}/>
+            </label>
+
+              <div>
+                <label>
+              <p>Create Password<sup>*</sup></p>
+              <input 
+              required
+              type={showPassword ? ("text") : ("password")}
+              name='password'
+              onChange={changeHandler}
+              placeholder='Enter Password'
+              value={FormData.password}/>
+                <span onClick={() => setShowPassword((prev) => !prev)}>
+                      {showPassword ? (<AiOutlineEye/>) :(<AiOutlineEyeInvisible/>)}
+                    </span>
+            </label>
+                <label>
+              <p>Confirm Password<sup>*</sup></p>
+              <input 
+              required
+              type={showPassword ? ("text") : ("password")}
+              name='confirmpassword'
+              onChange={changeHandler}
+              placeholder='Enter Confirm Password'
+              value={FormData.confirmPassword}/>
+                <span onClick={() => setShowPassword((prev) => !prev)}>
+                      {showPassword ? (<AiOutlineEye/>) :(<AiOutlineEyeInvisible/>)}
+                    </span>
+            </label>
+
+              </div>
+              <button>
+                Create Account
+              </button>
+             
+          </form>
+            
+          </div>
+        )
+      }
+
+      export default SignupForm
+
+
+

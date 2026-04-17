@@ -6,10 +6,11 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 
 import { Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
   return (
     <div>
@@ -17,8 +18,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/signup" element={<Signup/>} />
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn}/>} />
+        <Route path="/signup" element={<Signup setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
       </Routes>
     </div>
