@@ -19,10 +19,11 @@ import toast from 'react-hot-toast'
           }
         function  submiHandler(event) {
           event.preventDefault();
-          if(formData.password != formData.confirmPassword) {
-            toast.error("Password Don't match")
+          if(formData.password !== formData.confirmPassword) {
+            toast.error("Password Don't match");
+            return;
           }
-          setIsLoggedIn(true);
+        setIsLoggedIn(true);
         toast.success("Account Created Successfully")
        
         }
@@ -51,7 +52,7 @@ import toast from 'react-hot-toast'
               name='firstName'
               onChange={changeHandler}
               placeholder='Enter First Name'
-              value={FormData.firstName}/>
+              value={formData.firstName}/>
             </label>
 
             <label>
@@ -62,7 +63,7 @@ import toast from 'react-hot-toast'
               name='lastName'
               onChange={changeHandler}
               placeholder='Enter Last Name'
-              value={FormData.lastName}/>
+              value={formData.lastName}/>
             </label>
 
             </div>
@@ -77,7 +78,7 @@ import toast from 'react-hot-toast'
               name='email'
               onChange={changeHandler}
               placeholder='Enter Email Address'
-              value={FormData.email}/>
+              value={formData.email}/>
             </label>
 
               <div>
@@ -89,7 +90,7 @@ import toast from 'react-hot-toast'
               name='password'
               onChange={changeHandler}
               placeholder='Enter Password'
-              value={FormData.password}/>
+              value={formData.password}/>
                 <span onClick={() => setShowPassword((prev) => !prev)}>
                       {showPassword ? (<AiOutlineEye/>) :(<AiOutlineEyeInvisible/>)}
                     </span>
@@ -99,10 +100,10 @@ import toast from 'react-hot-toast'
               <input 
               required
               type={showPassword ? ("text") : ("password")}
-              name='confirmpassword'
+              name='confirmPassword'
               onChange={changeHandler}
               placeholder='Enter Confirm Password'
-              value={FormData.confirmPassword}/>
+              value={formData.confirmPassword}/>
                 <span onClick={() => setShowPassword((prev) => !prev)}>
                       {showPassword ? (<AiOutlineEye/>) :(<AiOutlineEyeInvisible/>)}
                     </span>
