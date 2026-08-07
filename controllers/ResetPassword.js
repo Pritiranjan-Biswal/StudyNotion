@@ -49,14 +49,13 @@ exports.resetPasswordToken=async(req, res) => {
             success:false,
             message:"Somthing went wrong while reset the password"
         })
-        
     }
-    
 }
 
 //reset password
 exports.resetPassword=async(req, res) => {
-    //data fetch
+    try{
+        //data fetch
     const {password, confirmPassword, token} = req.body;
     //validation
     if(password !==confirmPassword) {
@@ -82,7 +81,23 @@ exports.resetPassword=async(req, res) => {
         })
     }
     //hash password
+    const hashedPassword=await bcrypt.hash(password, 10);
     // update password
+    await User.findOneAndUpdate(
+        {token:token},
+        {password:hashedPassword},
+        {new:true}
+    );
     //return response
-
+    return res.status(200).json({
+        success:true,
+        message:"Password reset successfully"
+    })
+    }
+    catch(error) {
+        return res.status(401).json({
+            success:false,
+            message:""
+        })
+    }
 }
