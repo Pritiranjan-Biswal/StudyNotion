@@ -4,9 +4,9 @@ require("dotenv").config();
 const User=require("../models/User")
 
 //auth
-exports.auth=async(req,res) => {
+exports.auth=async(req,res, next) => {
     try{
-        //extract token and
+        //extract token in all possible 3 ways
         const token=req.cookies.token || req.body.token || req.header("Authorization").replace("Bearer", "");
 
         // if token is missing, then return response
