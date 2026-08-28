@@ -42,8 +42,7 @@ exports.updateProfile = async (req, res) => {
     catch(error) {
         return res.status(500).json({
             success:false,
-            message:"internal server error",
-            error:error.message
+            message:error.message
         })
     }
 }
@@ -81,6 +80,32 @@ exports.deleteAccount = async(req, res)=> {
 
     }
     catch(error) {
-            
+            res.status(500).json({
+                success:false,
+                message:"user cannot be deleted"
+            })
         }
+}
+
+
+exports.getAllUserDetails= async(req, res) => {
+    try{
+        const id= req.user.id;
+
+
+        const userDetails= await User.findById(id).populate("additionalDetails").exec();
+
+
+        return res.status(200).json({
+            success:true,
+            message:"user data fetched successfully"
+        })
+
+    }
+    catch(error) {
+        return res.status(500).json({
+            success:false,
+            message:error.message
+        })
+    }
 }
