@@ -77,7 +77,7 @@ exports.createCourse= async(req, res) => {
 
 
 
-        ///hw
+        //hw
 
 
 
@@ -111,7 +111,9 @@ exports.createCourse= async(req, res) => {
 
 exports.showAllCourses= async(req, res) => {
     try{
-        const a;;Courses= await Course.find({})
+        //todo : change the  below statement increamently
+        const allCourses= await Course.find({})
+                                            
                 return res.status(200).json({
                     success:true,
                     message:"Data for all courses fetched successfully.",
@@ -121,7 +123,7 @@ exports.showAllCourses= async(req, res) => {
     catch(error) {
         console.log(error);
         return res.status(500).json({
-            success:faalse,
+            success:false,
             mmessage:"Can not fetch course data",
             error:error.message
         })        
