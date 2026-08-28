@@ -10,7 +10,7 @@ const {courseEnrollmentEmail}= require("../mail/templates/courseEnrollmentEmail"
 const { default: mongoose } = require("mongoose")
 
 
-
+require('dotenv').config();
 
 //capture the payment and initiate the razorpay
 
@@ -23,7 +23,7 @@ exports.capturePayment= async(req, res) => {
         //validCourseId
     if(!course_id) {
         return res.json({
-            success:fakse,
+            success:false,
             message:"Please provide valid course id"
         })
     }
@@ -139,11 +139,38 @@ exports.verifySignature = async (req, res) => {
             {$push:{courses:courseId}},
             {new:true},
         )
-                                     
+        console.log(enrolledStudent);
+        
+        //mail sending
+        
+        const emailResponse= await mailSender(
+            enrolledStudent.email,
+            "Congratulatons from codeHelp",
+            "Congratulations you are onboarded into new CodeHelp Course",
+
+        )
+        console.log(emailResponse);
+
+        return res.status(200).json({
+            success:true,
+            message:"Signature verified and course Added"
+        })
+        
     }
     catch(error) {
-
+        console.log(error);
+        return res.status(500).json({
+            success:false,
+            message:error.message
+        })
+        
     }
+   }
+   else {
+    return res.status(400).json({
+        success:false,
+        message:"invalid request"
+    })
    }
    
    
